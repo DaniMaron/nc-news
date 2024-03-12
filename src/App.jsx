@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+
+import "./App.css";
+import ArticlesList from "./components/ArticlesList";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import SearchBar from "./components/SearchBar";
+import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [articlesList, setArticlesList] = useState([]);
+  const [topicsList, setTopicsList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://be-nc-news-p9rm.onrender.com/api/topics")
+      .then((topics) => {
+        setTopicsList(topics.data.topics);
+      });
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar />
+
+      <Routes>
+
+        <Route
+          path="/"
+          element={
+            <Home setArticlesList={setArticlesList}>
+              <SearchBar topicsList={topicsList} />
+              <ArticlesList articlesList={articlesList} />
+            </Home>
+          }
+        />
+        
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

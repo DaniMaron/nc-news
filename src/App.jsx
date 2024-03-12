@@ -9,17 +9,19 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import SingleArticle from "./components/SingleArticle";
+import Users from "./components/Users";
 import UserContext from "./contexts/UserContext";
 
 function App() {
   const [articlesList, setArticlesList] = useState([]);
   const [topicsList, setTopicsList] = useState([]);
-    const [currentUser, setCurrentUser] = useState({
-      username: "Morty_C-137",
-      name: "Morty Smith",
-      avatar_url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfeaHt6bgx8b0OIR48Lpt5caksPWrpb8VvfQ&usqp=CAU'
-    });
-
+  const [usersList, setUsersList] = useState([]);
+  const [currentUser, setCurrentUser] = useState({
+    username: "Morty_C-137",
+    name: "Morty Smith",
+    avatar_url:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfeaHt6bgx8b0OIR48Lpt5caksPWrpb8VvfQ&usqp=CAU",
+  });
 
   useEffect(() => {
     axios
@@ -27,12 +29,15 @@ function App() {
       .then((topics) => {
         setTopicsList(topics.data.topics);
       });
+    axios
+      .get("https://be-nc-news-p9rm.onrender.com/api/users")
+      .then((users) => {
+        setUsersList(users.data.users);
+      });
   }, []);
 
   return (
-    
-          <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       <Navbar />
 
       <Routes>
@@ -45,12 +50,12 @@ function App() {
             </Home>
           }
         />
-        <Route path="/articles/:article_id"
-          element={<SingleArticle />} />
+        <Route path="/articles/:article_id" element={<SingleArticle />} />
         <Route
           path="/articles/:article_id/comments"
-          element={<CommentsList />}
+          element={<CommentsList usersList={usersList} />}
         />
+        <Route path="/users" element={<Users usersList={usersList} />}></Route>
       </Routes>
     </UserContext.Provider>
   );

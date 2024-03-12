@@ -23,12 +23,11 @@ function Navbar() {
       </div>{" "}
       <div>
         <Link to="/users">
-          <img
-            className="avatar"
-            src={currentUser.avatar_url}
-            alt=""
-          />
-          <p>{currentUser.username}</p>
+          <img className="avatar" src={currentUser.avatar_url} alt="" />
+          <p>
+            {currentUser.name} (
+            {currentUser.username})
+          </p>
         </Link>
       </div>
     </nav>

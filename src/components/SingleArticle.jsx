@@ -18,14 +18,14 @@ function SingleArticle() {
 
     return (
       <div>
-        <h1>{article.title}</h1>
-        <h3>
+        <h2>{article.title}</h2>
+        <h4>
           written by <Link>{article.author}</Link>
-          {" || " + article.created_at.slice(0, 10) + " || "}
+          {" || " + article.created_at.slice(0, 10) + ' at ' +article.created_at.slice(11,16) + " || "}
           topic: <Link>{article.topic}</Link>
-        </h3>
+        </h4>
         <img src={article.article_img_url} alt="" />
-        <h2>{article.body}</h2>
+        <h3>{article.body}</h3>
         <div>
           {" " + article.votes + " votes || "}
           <Link to={"/articles/" + article.article_id + "/comments"}>

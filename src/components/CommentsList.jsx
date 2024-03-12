@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 
-function CommentsList() {
+function CommentsList(props) {
   const { article_id } = useParams();
-  const [commentsList, setCommentsList] = useState([]);
+    const [commentsList, setCommentsList] = useState([]);
+    const { usersList } = props;
+    let pic = ''
+
 
   useEffect(() => {
     axios
@@ -21,15 +24,18 @@ function CommentsList() {
 
     if (commentsList.length > 0) {
         
-        return <div><h1>Comments</h1>
+        return <div><h2>Comments</h2>
         {commentsList.map((comment) => {
-        console.log(comment);
+            for(const user of usersList){
+                if(user.username === comment.author)
+                 pic = user.avatar_url
+            }
         return (
-          <div className="commentCard">
-            <div>
+          <div className="commentCard" key={comment.comment_id}>
+                <div>
               <img
                 className="avatar"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfeaHt6bgx8b0OIR48Lpt5caksPWrpb8VvfQ&usqp=CAU"
+                src={pic}
                 alt=""
               />
             </div>
@@ -39,7 +45,9 @@ function CommentsList() {
               </h2>
             </div>
             <div>
-              <h3>{comment.body}</h3>{" "}
+                    <h4>{comment.body}</h4>{" "}
+                    <h5>posted on: {comment.created_at.slice(0, 10)} at {comment.created_at.slice(11,16)} | votes: {comment.votes}</h5>
+                    
             </div>
           </div>
         )
@@ -48,7 +56,6 @@ function CommentsList() {
     else {
         return (
           <div>
-            {" "}
             <h1>Comments</h1>
             <h2>There are no comments for this article</h2>{" "}
           </div>

@@ -63,10 +63,21 @@ nav {
   margin-left: 10px;
 }
 
-.commentCard{
+.commentCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 5px solid #646cffaa;
+  padding: 10px;
+  margin: 10px;
+}
+.userCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid #646cffaa;
+  padding: 10px;
+  margin: 10px;
 }
 
 .search {

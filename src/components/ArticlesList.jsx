@@ -14,10 +14,10 @@ function ArticlesList(props) {
         </Link>
         <div>
           <h3>
-            {'written by '} <Link>{article.author}</Link> | 
-            {' '+ article.votes + " votes | "}
-            <Link>{article.comment_count + " comments "}</Link> | 
-            {' '+article.created_at.slice(0, 10) + " | "}
+            {'written by '} <Link>{article.author}</Link> || 
+            {' '+ article.votes + " votes || "}
+            <Link to={'/articles/'+article.article_id+'/comments'}>{article.comment_count + " comments "}</Link> || 
+            {' '+article.created_at.slice(0, 10) + " || "}
           </h3>
         </div>
       </div>

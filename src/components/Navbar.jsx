@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
+import { useContext } from "react";
+
+
 
 function Navbar() {
+  const { currentUser } = useContext(UserContext);
   return (
     <nav>
       <div>
@@ -18,12 +23,12 @@ function Navbar() {
       </div>{" "}
       <div>
         <Link to="/users">
-          {" "}
           <img
             className="avatar"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfeaHt6bgx8b0OIR48Lpt5caksPWrpb8VvfQ&usqp=CAU"
+            src={currentUser.avatar_url}
             alt=""
           />
+          <p>{currentUser.username}</p>
         </Link>
       </div>
     </nav>

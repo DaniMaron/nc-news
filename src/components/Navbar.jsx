@@ -10,7 +10,7 @@ function Navbar() {
       </div>
       <div>
         <Link to="/topics">
-          <h2>Topics</h2>
+          <h2>All Topics</h2>
         </Link>
         <Link to="/topics">
           <h2>Post new article</h2>

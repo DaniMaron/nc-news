@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import SearchBar from "./components/SearchBar";
 import axios from "axios";
+import SingleArticle from "./components/SingleArticle";
 
 function App() {
   const [articlesList, setArticlesList] = useState([]);
@@ -31,8 +32,16 @@ function App() {
           element={
             <Home setArticlesList={setArticlesList}>
               <SearchBar topicsList={topicsList} />
-              <ArticlesList articlesList={articlesList} />
+              <ArticlesList articlesList={articlesList}>
+              </ArticlesList>
             </Home>
+          }
+        />
+        <Route
+          path="/articles/:article_id"
+          element={
+            <SingleArticle />
+          
           }
         />
         

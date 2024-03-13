@@ -24,7 +24,8 @@ function CommentsList(props) {
 
     if (commentsList.length > 0) {
         
-        return <div><h2>Comments</h2>
+      return <div><h2>Comments</h2>
+          
         {commentsList.map((comment) => {
             for(const user of usersList){
                 if(user.username === comment.author)

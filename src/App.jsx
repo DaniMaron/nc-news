@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import SingleArticle from "./components/SingleArticle";
 import Users from "./components/Users";
+import MessageContext from "./contexts/MessageContext";
 import UserContext from "./contexts/UserContext";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
     avatar_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfeaHt6bgx8b0OIR48Lpt5caksPWrpb8VvfQ&usqp=CAU",
   });
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -38,25 +40,31 @@ function App() {
 
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-      <Navbar />
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home setArticlesList={setArticlesList}>
-              <SearchBar topicsList={topicsList} />
-              <ArticlesList articlesList={articlesList}></ArticlesList>
-            </Home>
-          }
-        />
-        <Route path="/articles/:article_id" element={<SingleArticle />} />
-        <Route
-          path="/articles/:article_id/comments"
-          element={<CommentsList usersList={usersList} />}
-        />
-        <Route path="/users" element={<Users usersList={usersList} />}></Route>
-      </Routes>
+      <MessageContext.Provider value={{ message, setMessage }}>
+      <Navbar />
+        
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home setArticlesList={setArticlesList}>
+                <SearchBar topicsList={topicsList} />
+                <ArticlesList articlesList={articlesList}></ArticlesList>
+              </Home>
+            }
+          />
+          <Route path="/articles/:article_id" element={<SingleArticle />} />
+          <Route
+            path="/articles/:article_id/comments"
+            element={<CommentsList usersList={usersList} />}
+          />
+          <Route
+            path="/users"
+            element={<Users usersList={usersList} />}
+          ></Route>
+        </Routes>
+      </MessageContext.Provider>
     </UserContext.Provider>
   );
 }

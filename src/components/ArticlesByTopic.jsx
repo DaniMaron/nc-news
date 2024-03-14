@@ -8,6 +8,7 @@ const ArticlesByTopic = (props) => {
   return (
     <>
       <h2>All articles about {topic}</h2>
+      {props.children}
       {articlesList.map((article) => {
         if (article.topic === topic) {
           return (

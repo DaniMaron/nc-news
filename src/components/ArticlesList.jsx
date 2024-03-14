@@ -1,31 +1,70 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function ArticlesList(props) {
   const { articlesList } = props;
+  const { topic } = useParams();
 
-  return articlesList.map((article) => {
-    return (
-      
-        <div className="articleCard" key={article.article_id}>
-          <Link to={"/articles/" + article.article_id}>
-            <h2>{article.title}</h2>
-            <img src={article.article_img_url} alt="" />
-          </Link>
-          <div>
-            <h3>
-              {"written by "} <Link>{article.author}</Link> ||
-              {" " + article.votes + " votes || "}
-              <Link to={"/articles/" + article.article_id + "/comments"}>
-                {article.comment_count + " comments "}
-              </Link>{" "}
-              ||
-              {" " + article.created_at.slice(0, 10)}
-            </h3>
+
+  if (articlesList.length === 0) return (
+    <>
+      <h2>No articles were found!</h2>
+      <Link to={'/'}>
+        <h3>Back to all articles</h3>
+      </Link>
+    </>
+  );
+  else {
+    return articlesList.map((article) => {
+      if (topic === undefined) {
+        return (
+          <div className="articleCard" key={article.article_id}>
+            <Link to={"/articles/" + article.article_id}>
+              <h2>{article.title}</h2>
+              <img src={article.article_img_url} alt="" />
+            </Link>
+            <div>
+              <h3>
+                {"written by "} <Link>{article.author}</Link> ||
+                {" " + article.votes + " votes || "}
+                <Link to={"/articles/" + article.article_id + "/comments"}>
+                  {article.comment_count + " comments "}
+                </Link>{" "}
+                ||
+                {" " + article.created_at.slice(0, 10)}
+              </h3>
+            </div>
           </div>
-        </div>
-      
-    );
-  });
+        );
+      }
+      else {
+        if (article.topic === topic) {
+           
+          return (
+            <div className="articleCard" key={article.article_id}>
+            <Link to={"/articles/" + article.article_id}>
+              <h2>{article.title}</h2>
+              <img src={article.article_img_url} alt="" />
+            </Link>
+            <div>
+              <h3>
+                {"written by "} <Link>{article.author}</Link> ||
+                {" " + article.votes + " votes || "}
+                <Link to={"/articles/" + article.article_id + "/comments"}>
+                  {article.comment_count + " comments "}
+                </Link>{" "}
+                ||
+                {" " + article.created_at.slice(0, 10)}
+              </h3>
+            </div>
+          </div>
+        );
+      }
+
+
+
+      }
+    });
+  }
 }
 
 export default ArticlesList;

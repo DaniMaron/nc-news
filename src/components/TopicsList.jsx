@@ -15,7 +15,7 @@ function Topics(props) {
       <div>
         {topicsList.map((topic) => {
           return (
-            <div className="topicCard">
+            <div className="topicCard" key={topic.slug}>
               <Link to={"/topics/" + topic.slug} key={topic.slug}>
                 <h3>{topic.slug}</h3>
               </Link>

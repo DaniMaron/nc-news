@@ -33,21 +33,25 @@ function CommentsList(props) {
     };
     event.target.reset()
 
-    axios
-      .post(
-        "https://be-nc-news-p9rm.onrender.com/api/articles/" +
+    if (reqBody.body === '')
+      setMessage("You CAN'T post an empty comment")
+    else {
+      axios
+        .post(
+          "https://be-nc-news-p9rm.onrender.com/api/articles/" +
           article_id +
           "/comments",
-        reqBody
-      )
-      .then((comment) => {
-        setMessage("");
-      })
-      .catch((err) => {
-        setMessage(
-          "Your comment was NOT posted, make sure you are logged in and try again!"
-        );
-      });
+          reqBody
+        )
+        .then((comment) => {
+          setMessage("");
+        })
+        .catch((err) => {
+          setMessage(
+            "Your comment was NOT posted, make sure you are logged in and try again!"
+          );
+        });
+    }
 
     // setCommentsList([{
     //   comment_id: 999,

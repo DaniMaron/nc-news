@@ -50,8 +50,11 @@ function App() {
             path="/"
             element={
               <Home setArticlesList={setArticlesList}>
-                <SearchBar topicsList={topicsList} />
-                <ArticlesList articlesList={articlesList}></ArticlesList>
+                <SearchBar
+                  topicsList={topicsList}
+                  setArticlesList={setArticlesList}
+                />
+                <ArticlesList articlesList={articlesList} />
               </Home>
             }
           />
@@ -64,8 +67,23 @@ function App() {
             path="/users"
             element={<Users usersList={usersList} />}
           ></Route>
-          <Route path="/topics" element={<Topics setTopicsList={setTopicsList} topicsList={topicsList} />}></Route>
-          <Route path="/topics/:topic" element={<ArticlesByTopic articlesList={articlesList}></ArticlesByTopic>}></Route>
+          <Route
+            path="/topics"
+            element={
+              <Topics setTopicsList={setTopicsList} topicsList={topicsList} />
+            }
+          ></Route>
+          <Route
+            path="/topics/:topic"
+            element={
+              <ArticlesByTopic articlesList={articlesList}>
+                <SearchBar
+                  topicsList={topicsList}
+                  setArticlesList={setArticlesList}
+                />
+              </ArticlesByTopic>
+            }
+          ></Route>
         </Routes>
       </MessageContext.Provider>
     </UserContext.Provider>

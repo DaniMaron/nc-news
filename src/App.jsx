@@ -14,6 +14,7 @@ import Users from "./components/Users";
 import MessageContext from "./contexts/MessageContext";
 import UserContext from "./contexts/UserContext";
 import ArticlesByTopic from "./components/ArticlesByTopic";
+import InvalidPath from "./components/InvalidPath";
 
 function App() {
   const [articlesList, setArticlesList] = useState([]);
@@ -76,14 +77,19 @@ function App() {
           <Route
             path="/topics/:topic"
             element={
-              <ArticlesByTopic articlesList={articlesList}>
+              <ArticlesByTopic
+                articlesList={articlesList}
+                topicsList={topicsList}
+              >
                 <SearchBar
                   topicsList={topicsList}
                   setArticlesList={setArticlesList}
-                />
+                />{" "}
+                <ArticlesList articlesList={articlesList} />
               </ArticlesByTopic>
             }
           ></Route>
+          <Route path="*" element={<InvalidPath />} />
         </Routes>
       </MessageContext.Provider>
     </UserContext.Provider>

@@ -24,6 +24,7 @@ function CommentsList(props) {
       });
   }, [article_id, commentsList]);
 
+
   function postComment(event) {
     event.preventDefault();
     const reqBody = {
@@ -56,9 +57,20 @@ function CommentsList(props) {
     //   created_at: new Date().toISOString()
     // }])
 
-    console.log(commentsList);
   }
 
+  function deleteComment(event) {
+    event.preventDefault()
+    axios.delete(
+      "https://be-nc-news-p9rm.onrender.com/api/comments/" + event.target.value)
+      .then(() => {
+        setMessage('')
+        
+      })
+      .catch(() => {
+      setMessage('Your comment was NOT deleted, please try again!')
+    })
+  }
 
   if (commentsList.length > 0) {
     return (
@@ -91,6 +103,15 @@ function CommentsList(props) {
                   posted on: {comment.created_at.slice(0, 10)} at{" "}
                   {comment.created_at.slice(11, 16)} | votes: {comment.votes}
                 </h5>
+              </div>
+              <div>
+                <button onClick={deleteComment} value={comment.comment_id}
+                  style={{
+                    display: comment.author === currentUser.username ? "block" : "none",
+                  }}
+                >
+                  Delete comment
+                </button>
               </div>
             </div>
           );

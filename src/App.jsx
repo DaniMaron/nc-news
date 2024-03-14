@@ -9,9 +9,11 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import SingleArticle from "./components/SingleArticle";
+import Topics from "./components/TopicsList";
 import Users from "./components/Users";
 import MessageContext from "./contexts/MessageContext";
 import UserContext from "./contexts/UserContext";
+import ArticlesByTopic from "./components/ArticlesByTopic";
 
 function App() {
   const [articlesList, setArticlesList] = useState([]);
@@ -40,10 +42,9 @@ function App() {
 
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-
       <MessageContext.Provider value={{ message, setMessage }}>
-      <Navbar />
-        
+        <Navbar />
+
         <Routes>
           <Route
             path="/"
@@ -63,6 +64,8 @@ function App() {
             path="/users"
             element={<Users usersList={usersList} />}
           ></Route>
+          <Route path="/topics" element={<Topics setTopicsList={setTopicsList} topicsList={topicsList} />}></Route>
+          <Route path="/topics/:topic" element={<ArticlesByTopic articlesList={articlesList}></ArticlesByTopic>}></Route>
         </Routes>
       </MessageContext.Provider>
     </UserContext.Provider>

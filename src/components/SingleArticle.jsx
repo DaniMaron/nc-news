@@ -71,9 +71,9 @@ function SingleArticle() {
         >
           -
         </button>{" "}
-        {" " + article.votes + " votes"} ||
+        {" " + article.votes + " votes"} || 
         <Link to={"/articles/" + article.article_id + "/comments"}>
-          {article.comment_count + " comments "}
+          {' ' + article.comment_count + " comments "}
         </Link>{" "}
       </div>
       <p>{message}</p>

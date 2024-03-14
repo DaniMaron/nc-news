@@ -31,6 +31,7 @@ function CommentsList(props) {
       username: currentUser.username,
       body: event.target[0].value,
     };
+    event.target.reset()
 
     axios
       .post(

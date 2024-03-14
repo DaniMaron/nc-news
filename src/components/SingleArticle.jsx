@@ -38,7 +38,7 @@ function SingleArticle() {
         }
       })
       .catch(() => {
-        setMessage("Your vote was NOT registered, try again!");
+        setMessage("Your vote was NOT registered, please try again!");
       });
   }
 

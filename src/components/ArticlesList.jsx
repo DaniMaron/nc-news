@@ -5,7 +5,7 @@ function ArticlesList(props) {
 
   return articlesList.map((article) => {
     return (
-      <>
+      
         <div className="articleCard" key={article.article_id}>
           <Link to={"/articles/" + article.article_id}>
             <h2>{article.title}</h2>
@@ -23,7 +23,7 @@ function ArticlesList(props) {
             </h3>
           </div>
         </div>
-      </>
+      
     );
   });
 }

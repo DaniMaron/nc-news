@@ -48,6 +48,7 @@
 }
 
 nav {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,6 +72,19 @@ nav {
   padding: 10px;
   margin: 10px;
 }
+
+.commentUser{
+display: flex;
+flex-direction: column;
+}
+
+.commentBody{
+  flex-grow: 1;
+  margin-left: 0.20em;
+}
+h4{
+word-break: break-all;}
+
 .userCard {
   display: flex;
   justify-content: space-between;
@@ -87,4 +101,17 @@ nav {
   padding: 10px;
   background-color: #333;
   color: white;
+}
+
+textarea {
+  text-align: center;
+  font-size: x-large;
+  text-justify: center;
+  width: 70%;
+  /* height: 3em; */
+  resize: vertical;
+}
+.commentForm {
+  display: flex;
+  justify-content: space-evenly;
 }

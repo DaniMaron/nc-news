@@ -1,18 +1,17 @@
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { fetchTopics } from "../../api";
 
-function Topics(props) {
-  const { topicsList, setTopicsList } = props;
-  axios
-    .get("https://be-nc-news-p9rm.onrender.com/api/topics")
-    .then(({ data: { topics } }) => {
-      setTopicsList(topics);
-    });
+function TopicsList(props) {
+  const { topicsList , setTopicsList } = props;
+  
+  fetchTopics().then((topics) => {
+        setTopicsList(topics);
+      });
 
   return (
-    <>
+    <div className="content">
       <h2>Topics</h2>
-      <div>
+      
         {topicsList.map((topic) => {
           return (
             <div className="topicCard" key={topic.slug}>
@@ -23,8 +22,7 @@ function Topics(props) {
           );
         })}
       </div>
-    </>
   );
 }
 
-export default Topics;
+export default TopicsList;

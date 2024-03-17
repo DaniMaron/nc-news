@@ -1,32 +1,29 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import MessageContext from "../contexts/MessageContext";
+import { fetchArticle, updateArticleVotes } from "../../api";
 
-function SingleArticle() {
+function SingleArticle(props) {
   const [article, setArticle] = useState({ created_at: "" });
   const [isUpvoteDisabled, setIsUpvoteDisabled] = useState(false);
   const [isDownvoteDisabled, setIsDownvoteDisabled] = useState(false);
   const { article_id } = useParams();
   const { message, setMessage } = useContext(MessageContext);
+  const { isLoading, setIsLoading } = props;
   useEffect(() => {
-    axios
-      .get("https://be-nc-news-p9rm.onrender.com/api/articles/" + article_id)
+    fetchArticle(article_id)
       .then((article) => {
-        setMessage('')
-        setArticle(article.data.article[0]);
+        setArticle(article);
+        setIsLoading(false);
       })
       .catch(() => {
-        setMessage('Article does not exist')
-    })
+        setMessage("Article does not exist");
+      });
   }, [article]);
 
   function incrementArticleVote(event) {
-    axios
-      .patch(
-        `https://be-nc-news-p9rm.onrender.com/api/articles/${article_id}`,
-        { inc_votes: event.target.value }
-      )
+    const reqBody = {inc_votes: event.target.value}
+    updateArticleVotes(article_id, reqBody)
       .then(() => {
         setMessage("");
         if (event.target.value === "1" && isDownvoteDisabled) {
@@ -44,30 +41,34 @@ function SingleArticle() {
       .catch(() => {
         setMessage("Your vote was NOT registered, please try again!");
       });
-    }
-    
-    if (message === "Article does not exist"){
-      return (
-        <>
-          <h2>{message}</h2>
-          <Link to={"/"}>
-            <h3>Back to all articles</h3>
-          </Link>
-        </>
-      );
-    }
-    else {
+  }
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (message === "Article does not exist") {
     return (
-      <div>
+      <>
+        <h2>{message}</h2>
+        <Link to={"/"}>
+          <h3>Back to all articles</h3>
+        </Link>
+      </>
+    );
+  } else {
+    return (
+      <div className="content">
         <h2>{article.title}</h2>
         <h4>
-          written by <Link>{article.author}</Link>
-          {" || " +
-            article.created_at.slice(0, 10) +
+          <div>
+            written by{" "}
+            <Link to={"/authors/" + article.author}>{article.author}</Link>
+          </div>
+          {article.created_at.slice(0, 10) +
             " at " +
-            article.created_at.slice(11, 16) +
-            " || "}
-          topic: <Link>{article.topic}</Link>
+            article.created_at.slice(11, 16)}
+          <div>
+            topic: <Link to={"/topics/" + article.topic}>{article.topic}</Link>
+          </div>
         </h4>
         <img src={article.article_img_url} alt="" />
         <h3>{article.body}</h3>
@@ -95,7 +96,6 @@ function SingleArticle() {
       </div>
     );
   }
-  
 }
 
 export default SingleArticle;

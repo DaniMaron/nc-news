@@ -1,0 +1,12 @@
+all links should work after invalid author/topic/articleCard
+
+message should disappear when leaving and re entering page after voting gone wrong
+
+optimistic rendering needs to be implemented
+
+
+
+
+page should be responsive on mobile
+
+icon

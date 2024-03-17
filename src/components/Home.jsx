@@ -1,21 +1,24 @@
-import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { fetchArticles } from "../../api";
 
 function Home(props) {
+  const { isLoading, setIsLoading } = props;
   const { setArticlesList } = props;
   useEffect(() => {
-    axios
-      .get("https://be-nc-news-p9rm.onrender.com/api/articles")
-      .then((articles) => {
-        setArticlesList(articles.data.articles);
-      });
+    fetchArticles().then((articles) => {
+      console.log("hello");
+      setArticlesList(articles);
+      setIsLoading(false);
+    });
   }, []);
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
-    <>
+    <div className="content">
       <h2>All articles</h2>
       {props.children}
-    </>
+    </div>
   );
 }
 

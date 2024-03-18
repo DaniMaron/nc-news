@@ -6,11 +6,10 @@ function Home(props) {
   const { setArticlesList } = props;
   useEffect(() => {
     fetchArticles().then((articles) => {
-      console.log("hello");
       setArticlesList(articles);
       setIsLoading(false);
     });
-  }, []);
+  }, [isLoading]);
 
   if (isLoading) return <div>Loading...</div>;
 

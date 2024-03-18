@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
+import logo from '../../src/assets/NCNews.svg'
 
 function Navbar() {
   const { currentUser } = useContext(UserContext);
@@ -8,7 +9,10 @@ function Navbar() {
     <nav>
       <div className="logotitle">
         <Link to="/">
-          <img src="./src/assets/NCNews.svg" alt="" />
+          <img
+            src={logo}
+            alt="Blue northcoders logo"
+          />
           <h3>NC NEWS</h3>
         </Link>
       </div>
@@ -21,7 +25,7 @@ function Navbar() {
           <h2>Authors</h2>
         </Link>
       </div>
-      
+
       <div className="avatarNavbar">
         <Link to="/users">
           <img className="avatar" src={currentUser.avatar_url} alt="" />
